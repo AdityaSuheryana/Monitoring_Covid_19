@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Corona Berdasarkan Provinsi</title>
+    <style>
+         .auto_num {counter-reset: serial-number;} .auto_num td:first-child:before {counter-increment: serial-number;content: counter(serial-number); } .tablecovid{ background-color: #fff; box-shadow: 0 7px 16px 0 rgba(50,50,50,0.2); border-radius: 15px; text-align: center;} tr:nth-child(even){background-color: #f2f2f2;}
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     
+        <script>
+        $(document).ready(function(){
+     
+            $.ajax({
+ async: true,
+ cache: true,
+ url: "https://api.kawalcorona.com/indonesia/provinsi/",
+ success: function (obj) {
+
+ for(var i=0;i<obj.length;i++) {
+
+     var tr="<tr>";
+
+     var auto_num="<td></>";
+
+     var td1="<td>"+"<span>"+obj[i].attributes['Provinsi']+"</span>"+"</td>";
+
+     var td2="<td>"+obj[i].attributes['Kasus_Posi']+"</td>";
+
+     var td3="<td>"+obj[i].attributes['Kasus_Semb']+"</td>";
+
+     var td4="<td>"+obj[i].attributes['Kasus_Meni']+"</td></tr>";
+
+     $("#dataProv").append(tr+auto_num+td1+td2+td3+td4);
+
+ }
+
+}});
+        });
+        </script>
+
+</head>
+<body>
+    <div class="tablecovid">
+     <br>
+    <table border="1" id="auto_num" align="center" style="border-collapse: collapse; width: 95%;">
+        <thead>
+            <tr>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>NO</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="40%">
+                <div align="center">
+              <b><span>Provinsi</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Positif</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Sembuh</span></b></div>
+              </th>
+                <th valign="center" height="30px" width="10%">
+                <div align="center">
+              <b><span>Meninggal</span></b></div>
+              </th>
+               </tr>
+        </thead>
+        <tbody class="auto_num" id="dataProv">
+       </tbody></table>
+       <br />
+    </div>
+</body>
+</html>
